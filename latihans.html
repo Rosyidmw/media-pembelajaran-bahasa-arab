@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Bahasa Arab</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>✏️ Latihan Soal</h1>
+        <div id="skor">Skor: 0</div>
+    </header>
+
+    <main class="container">
+        <form id="latihanForm" class="soal-container">
+            <!-- Soal akan di-generate oleh JavaScript -->
+        </form>
+    </main>
+
+    <script>
+        const semuaSoalData = [
+            { soal: 'Tulisan Arab untuk "Buku"', jawaban: "كِتَاب" },
+            { soal: 'Tulisan Arab untuk "Pensil"', jawaban: "قَلَم" },
+            { soal: 'Tulisan Arab untuk "Rumah"', jawaban: "بَيْت" },
+            { soal: 'Tulisan Arab untuk "Makan"', jawaban: "يَأْكُل" },
+            { soal: 'Tulisan Arab untuk "Guru"', jawaban: "مُعَلِّم" },
+            { soal: 'Tulisan Arab untuk "Sekolah"', jawaban: "مَدْرَسَة" },
+            { soal: 'Tulisan Arab untuk "Minum"', jawaban: "يَشْرَب" },
+            { soal: 'Tulisan Arab untuk "Kursi"', jawaban: "كُرْسِيّ" },
+            { soal: 'Tulisan Arab untuk "Air"', jawaban: "مَاء" },
+            { soal: 'Tulisan Arab untuk "Anak"', jawaban: "طِفْل" },
+            { soal: 'Terjemahkan: "Ibu pergi ke pasar"', jawaban: "الْأُمُّ تَذْهَبُ إِلَى السُّوقِ" },
+            { soal: 'Terjemahkan: "Ayah minum air"', jawaban: "الأَبُ يَشْرَبُ المَاءَ" },
+            { soal: 'Terjemahkan: "Guru menulis di papan tulis"', jawaban: "المُعَلِّمُ يَكْتُبُ عَلَى السَّبُّورَةِ" }
+        ];
+
+        // Acak soal dan pilih 10
+        const soalAcak = shuffleArray([...semuaSoalData]).slice(0, 10);
+        let soalAktif = 0;
+        let skor = 0;
+
+        // Generate soal
+        const form = document.getElementById('latihanForm');
+        soalAcak.forEach((soal, index) => {
+            const divSoal = document.createElement('div');
+            divSoal.className = `soal ${index === 0 ? 'aktif' : ''}`;
+            divSoal.innerHTML = `
+                <label>${index + 1}. ${soal.soal}</label>
+                <input type="text" required dir="rtl" ${soal.soal.includes('Terjemahkan') ? 'style="height:50px"' : ''}>
+                <button type="button" class="cek-jawaban">Cek Jawaban</button>
+            `;
+            form.appendChild(divSoal);
+        });
+
+        // Fungsi pengacakan
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Handle jawaban
+        document.querySelectorAll('.cek-jawaban').forEach((button, index) => {
+            button.addEventListener('click', (e) => {
+                const currentSoal = e.target.closest('.soal');
+                const input = currentSoal.querySelector('input');
+                const nilaiInput = input.value.trim();
+                
+                // Validasi input kosong
+                if (!nilaiInput) {
+                    alert('Silakan isi jawaban terlebih dahulu!');
+                    return;
+                }
+
+                // Nonaktifkan input dan tombol
+                input.disabled = true;
+                e.target.disabled = true;
+
+                // Cek jawaban
+                if (nilaiInput === soalAcak[index].jawaban) {
+                    input.style.borderColor = "#2ecc71";
+                    input.style.backgroundColor = "#e8f5e9";
+                    skor += 10;
+                    document.getElementById('skor').textContent = `Skor: ${skor}`;
+                    new Audio('true.mp3').play();
+                } else {
+                    input.style.borderColor = "#e74c3c";
+                    input.style.backgroundColor = "#ffebee";
+                    new Audio('false.mp3').play();
+                }
+
+                // Update status soal aktif
+                const semuaSoal = document.querySelectorAll('.soal');
+                currentSoal.classList.remove('aktif');
+                
+                // Cari soal berikutnya yang belum dijawab
+                let nextIndex = index + 1;
+                while(nextIndex < semuaSoal.length && semuaSoal[nextIndex].querySelector('input').disabled) {
+                    nextIndex++;
+                }
+
+                if(nextIndex < semuaSoal.length) {
+                    semuaSoal[nextIndex].classList.add('aktif');
+                    window.scrollTo({
+                        top: semuaSoal[nextIndex].offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Tampilkan semua soal
+                    form.classList.add('selesai');
+                    semuaSoal.forEach(soal => {
+                        soal.classList.remove('aktif');
+                        soal.style.opacity = 1;
+                        soal.style.pointerEvents = 'none'; // Optional: nonaktifkan interaksi
+                    });
+                    
+                    // Scroll ke atas
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Tampilkan skor akhir
+                    const resultHTML = `
+                        <div class="hasil-akhir">
+                            <h2>🏁 Latihan Selesai! 🎉</h2>
+                            <h3>Skor Akhir: ${skor}/100</h3>
+                            <div class="soal-review">
+                                ${Array.from(semuaSoal).map((soal, i) => `
+                                    <div class="review-item">
+                                        <div class="soal-text">${i + 1}. ${soalAcak[i].soal}</div>
+                                        <div class="jawaban-user">Jawaban Anda: ${soal.querySelector('input').value}</div>
+                                        <div class="jawaban-benar">Jawaban Benar: ${soalAcak[i].jawaban}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <button onclick="window.location.reload()">🔄 Coba Lagi</button>
+                        </div>
+                    `;
+                    
+                    form.innerHTML = resultHTML;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
