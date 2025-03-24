@@ -26,20 +26,56 @@
 
     <script>
         const semuaSoalData = [
-            { soal: 'Tulisan Arab untuk "Buku"', jawaban: "كِتَاب" },
-            { soal: 'Tulisan Arab untuk "Pensil"', jawaban: "قَلَم" },
-            { soal: 'Tulisan Arab untuk "Rumah"', jawaban: "بَيْت" },
-            { soal: 'Tulisan Arab untuk "Makan"', jawaban: "يَأْكُل" },
-            { soal: 'Tulisan Arab untuk "Guru"', jawaban: "مُعَلِّم" },
-            { soal: 'Tulisan Arab untuk "Sekolah"', jawaban: "مَدْرَسَة" },
-            { soal: 'Tulisan Arab untuk "Minum"', jawaban: "يَشْرَب" },
-            { soal: 'Tulisan Arab untuk "Kursi"', jawaban: "كُرْسِيّ" },
-            { soal: 'Tulisan Arab untuk "Air"', jawaban: "مَاء" },
-            { soal: 'Tulisan Arab untuk "Anak"', jawaban: "طِفْل" },
-            { soal: 'Terjemahkan: "Ibu pergi ke pasar"', jawaban: "الْأُمُّ تَذْهَبُ إِلَى السُّوقِ" },
-            { soal: 'Terjemahkan: "Ayah minum air"', jawaban: "الأَبُ يَشْرَبُ المَاءَ" },
-            { soal: 'Terjemahkan: "Guru menulis di papan tulis"', jawaban: "المُعَلِّمُ يَكْتُبُ عَلَى السَّبُّورَةِ" }
-        ];
+    // Contoh identifikasi unsur kalimat
+    { 
+        soal: 'Kalimat: "ذَهَبَ الطَّالِبُ إِلَى المَدْرَسَةِ" (Siswa pergi ke sekolah). Mana yang menjadi فَاعِل (subjek)?',
+        jawaban: "الطَّالِبُ" 
+    },
+    { 
+        soal: 'Pada kalimat "يَقْرَأُ الوَلَدُ الكِتَابَ" (Anak laki-laki membaca buku), kata "الكِتَابَ" termasuk kategori apa?',
+        jawaban: "مَفْعُول بِه (objek)" 
+    },
+    
+    // Contoh terjemahan + analisis
+    { 
+        soal: 'Terjemahkan: "Ibu memasak makanan" lalu identifikasi predikatnya',
+        jawaban: "تَطْبُخُ (kata kerja memasak)" 
+    },
+    { 
+        soal: 'Dari kalimat "الْمُدَرِّسُ يُشَرِّحُ الدَّرْسَ" (Guru menjelaskan pelajaran), mana yang menjadi مُبْتَدَأ (subjek)?',
+        jawaban: "الْمُدَرِّسُ" 
+    },
+    
+    // Contoh analogi dengan bahasa Indonesia
+    { 
+        soal: 'Dalam kalimat "أَكَلَ زَيْدٌ التُّفَّاحَةَ" (Zaid memakan apel), kata "زَيْدٌ" berperan sebagai...',
+        jawaban: "فَاعِل (subjek)" 
+    },
+    { 
+        soal: 'Pada kalimat "يَلْعَبُ الأَطْفَالُ فِي الحَدِيقَةِ" (Anak-anak bermain di taman), mana yang menjadi ظَرْف مَكَان (keterangan tempat)?',
+        jawaban: "فِي الحَدِيقَةِ" 
+    },
+    
+    // Contoh format sesuai permintaan user
+    { 
+        soal: 'Kalimat: "أَنَا آكُلُ الأُرُزَّ" (Saya makan nasi). Kata "أَنَا" termasuk kategori apa?',
+        jawaban: "مُبْتَدَأ (subjek)" 
+    },
+    { 
+        soal: 'Dari kalimat "اَلطَّالِبَةُ تَكْتُبُ الدَّرْسَ" (Siswi menulis pelajaran), mana yang menjadi خَبَر (predikat)?',
+        jawaban: "تَكْتُبُ" 
+    },
+    
+    // Contoh kombinasi terjemahan + analisis
+    { 
+        soal: 'Terjemahkan "Ayah membaca koran" ke bahasa Arab lalu identifikasi objeknya',
+        jawaban: "يَقْرَأُ الأَبُ الجَرِيدَةَ (الجَرِيدَةَ = objek)" 
+    },
+    { 
+        soal: 'Pada kalimat "يَشْرَبُ الوَلَدُ الحَلِيبَ" (Anak laki-laki minum susu), kata "يَشْرَبُ" termasuk kategori apa?',
+        jawaban: "فِعْل (kata kerja/predikat)" 
+    }
+];
 
         // Acak soal dan pilih 10
         const soalAcak = shuffleArray([...semuaSoalData]).slice(0, 10);

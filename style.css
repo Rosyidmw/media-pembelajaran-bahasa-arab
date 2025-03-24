@@ -228,6 +228,46 @@ button:hover {
     font-size: 1.1rem;
 }
 
+.video-pembelajaran {
+    margin: 2rem 0;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.video-pembelajaran h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* Responsive untuk mobile */
 @media (max-width: 768px) {
     .menu-grid {
         grid-template-columns: 1fr;
@@ -240,5 +280,13 @@ button:hover {
     .kata {
         flex-direction: column;
         gap: 0.5rem;
+    }
+    .video-pembelajaran {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .video-grid {
+        grid-template-columns: 1fr;
     }
 }

@@ -15,135 +15,23 @@
     </header>
 
     <main class="container">
-        <form id="latihanForm" class="soal-container">
-            <!-- Latihan Kosakata (10 Soal) -->
-            <div class="soal aktif">
-                <label>1. Tulisan Arab untuk "Buku"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>2. Tulisan Arab untuk "Pensil"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <!-- Tambahkan 8 soal kosakata lainnya -->
-            <div class="soal">
-                <label>3. Tulisan Arab untuk "Rumah"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>4. Tulisan Arab untuk "Makan"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>5. Tulisan Arab untuk "Guru"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>6. Tulisan Arab untuk "Sekolah"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>7. Tulisan Arab untuk "Minum"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>8. Tulisan Arab untuk "Kursi"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>9. Tulisan Arab untuk "Air"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>10. Tulisan Arab untuk "Anak"</label>
-                <input type="text" required dir="rtl">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <!-- Latihan Kalimat (3 Soal) -->
-            <div class="soal">
-                <label>11. Terjemahkan: "Ibu pergi ke pasar"</label>
-                <input type="text" required dir="rtl" style="height:50px">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>12. Terjemahkan: "Ayah minum air"</label>
-                <input type="text" required dir="rtl" style="height:50px">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-
-            <div class="soal">
-                <label>13. Terjemahkan: "Guru menulis di papan tulis"</label>
-                <input type="text" required dir="rtl" style="height:50px">
-                <button type="button" class="cek-jawaban">Cek Jawaban</button>
-            </div>
-        </form>
+        <div class="menu-grid">
+            <a href="latihans.html" class="menu-card">
+                <img src="https://img.icons8.com/color/96/pencil--v1.png" alt="Buku">
+                <h3>Latihan 1</h3>
+            </a>
+            
+            <a href="latihan2.html" class="menu-card">
+                <img src="https://img.icons8.com/color/96/pencil--v1.png" alt="Latihan">
+                <h3>Latihan 2</h3>
+            </a>
+            
+        </div>
     </main>
 
     <footer>
-        <!-- Footer sama seperti sebelumnya -->
+        <p>Isma Fathanah - 2102455 © Copyright 2025</p>
     </footer>
 
-    <script>
-        const jawabanBenar = [
-            "كِتَاب",      // 1
-            "قَلَم",       // 2
-            "بَيْت",       // 3
-            "يَأْكُل",     // 4
-            "مُعَلِّم",    // 5
-            "مَدْرَسَة",   // 6
-            "يَشْرَب",     // 7
-            "كُرْسِيّ",    // 8
-            "مَاء",        // 9
-            "طِفْل",       // 10
-            "الْأُمُّ تَذْهَبُ إِلَى السُّوقِ",   // 11
-            "الأَبُ يَشْرَبُ المَاءَ",           // 12
-            "المُعَلِّمُ يَكْتُبُ عَلَى السَّبُّورَةِ" //13
-        ];
-
-        let soalAktif = 0;
-
-        document.querySelectorAll('.cek-jawaban').forEach((button, index) => {
-            button.addEventListener('click', (e) => {
-                const input = e.target.previousElementSibling;
-                const nilaiInput = input.value.trim();
-                
-                if(nilaiInput === jawabanBenar[index]) {
-                    input.style.borderColor = "#2ecc71";
-                    input.style.backgroundColor = "#e8f5e9";
-                    soalAktif++;
-                    if(document.querySelectorAll('.soal')[soalAktif]) {
-                        document.querySelectorAll('.soal')[soalAktif].classList.add('aktif');
-                        window.scrollTo({
-                            top: document.querySelectorAll('.soal')[soalAktif].offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                } else {
-                    input.style.borderColor = "#e74c3c";
-                    input.style.backgroundColor = "#ffebee";
-                }
-            });
-        });
-    </script>
 </body>
 </html>
