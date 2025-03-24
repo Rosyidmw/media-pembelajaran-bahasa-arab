@@ -117,9 +117,10 @@ footer {
 .soal input {
     width: 100%;
     padding: 0.8rem;
-    border: 2px solid #3498db;
+    border: 2px solid #3498db !important;
     border-radius: 8px;
     font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .cek-jawaban {
@@ -135,6 +136,16 @@ footer {
 
 .cek-jawaban:hover {
     background: #2980b9;
+}
+
+input {
+    border: 2px solid #ddd; /* Border dasar */
+    border-radius: 4px;
+    padding: 8px;
+    width: 100%;
+    font-family: 'Amiri', sans-serif;
+    font-size: 1.2em;
+    transition: all 0.3s ease; /* Animasi perubahan warna */
 }
 
 /* Hasil akhir */

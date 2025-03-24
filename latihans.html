@@ -83,69 +83,71 @@
 
                 // Cek jawaban
                 if (nilaiInput === soalAcak[index].jawaban) {
-                    input.style.borderColor = "#2ecc71";
-                    input.style.backgroundColor = "#e8f5e9";
+                    input.style.setProperty('border', '2px solid #2ecc71', 'important');
+                    input.style.setProperty('background-color', '#e8f5e9', 'important');
                     skor += 10;
                     document.getElementById('skor').textContent = `Skor: ${skor}`;
                     new Audio('true.mp3').play();
                 } else {
-                    input.style.borderColor = "#e74c3c";
-                    input.style.backgroundColor = "#ffebee";
+                    input.style.setProperty('border', '2px solid #e74c3c', 'important');
+                    input.style.setProperty('background-color', '#ffebee', 'important');
                     new Audio('false.mp3').play();
                 }
 
                 // Update status soal aktif
-                const semuaSoal = document.querySelectorAll('.soal');
-                currentSoal.classList.remove('aktif');
-                
-                // Cari soal berikutnya yang belum dijawab
-                let nextIndex = index + 1;
-                while(nextIndex < semuaSoal.length && semuaSoal[nextIndex].querySelector('input').disabled) {
-                    nextIndex++;
-                }
+                // Tambahkan delay 300ms sebelum pindah soal
+        setTimeout(() => {
+            void input.offsetWidth; // Reflow
+            setTimeout(() => {
+            const semuaSoal = document.querySelectorAll('.soal');
+            currentSoal.classList.remove('aktif');
+            
+            let nextIndex = index + 1;
+            while(nextIndex < semuaSoal.length && semuaSoal[nextIndex].querySelector('input').disabled) {
+                nextIndex++;
+            }
 
-                if(nextIndex < semuaSoal.length) {
-                    semuaSoal[nextIndex].classList.add('aktif');
-                    window.scrollTo({
-                        top: semuaSoal[nextIndex].offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // Tampilkan semua soal
-                    form.classList.add('selesai');
-                    semuaSoal.forEach(soal => {
-                        soal.classList.remove('aktif');
-                        soal.style.opacity = 1;
-                        soal.style.pointerEvents = 'none'; // Optional: nonaktifkan interaksi
-                    });
-                    
-                    // Scroll ke atas
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Tampilkan skor akhir
-                    const resultHTML = `
-                        <div class="hasil-akhir">
-                            <h2>🏁 Latihan Selesai! 🎉</h2>
-                            <h3>Skor Akhir: ${skor}/100</h3>
-                            <div class="soal-review">
-                                ${Array.from(semuaSoal).map((soal, i) => `
-                                    <div class="review-item">
-                                        <div class="soal-text">${i + 1}. ${soalAcak[i].soal}</div>
-                                        <div class="jawaban-user">Jawaban Anda: ${soal.querySelector('input').value}</div>
-                                        <div class="jawaban-benar">Jawaban Benar: ${soalAcak[i].jawaban}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <button onclick="window.location.reload()">🔄 Coba Lagi</button>
+            if(nextIndex < semuaSoal.length) {
+                semuaSoal[nextIndex].classList.add('aktif');
+                window.scrollTo({
+                    top: semuaSoal[nextIndex].offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            } else {
+                form.classList.add('selesai');
+                semuaSoal.forEach(soal => {
+                    soal.classList.remove('aktif');
+                    soal.style.opacity = 1;
+                    soal.style.pointerEvents = 'none';
+                });
+                
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                const resultHTML = `
+                    <div class="hasil-akhir">
+                        <h2>🏁 Latihan Selesai! 🎉</h2>
+                        <h3>Skor Akhir: ${skor}/100</h3>
+                        <div class="soal-review">
+                            ${Array.from(semuaSoal).map((soal, i) => `
+                                <div class="review-item">
+                                    <div class="soal-text">${i + 1}. ${soalAcak[i].soal}</div>
+                                    <div class="jawaban-user">Jawaban Anda: ${soal.querySelector('input').value}</div>
+                                    <div class="jawaban-benar">Jawaban Benar: ${soalAcak[i].jawaban}</div>
+                                </div>
+                            `).join('')}
                         </div>
-                    `;
-                    
-                    form.innerHTML = resultHTML;
-                }
-            });
+                        <button onclick="window.location.reload()">🔄 Coba Lagi</button>
+                    </div>
+                `;
+                
+                form.innerHTML = resultHTML;
+            }
+        }, 300);
+        }, 100) // Delay 300ms untuk melihat perubahan warna, atur disini untuk durasi berubah warna
+    });
         });
     </script>
 </body>
