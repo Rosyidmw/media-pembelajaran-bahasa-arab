@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materi Pembelajaran Bahasa Arab</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
 </head>
@@ -57,21 +57,25 @@
         <section class="materi">
             <div class="kosakata-item">
                 <h2>Kosakata Dasar (20 Kata)</h2>
-                <div class="kata">
+                <div class="kata" data-audio="kitab.mp3">
                     <span>Buku</span>
                     <span dir="rtl">كِتَاب</span>
+                    <button class="play-button" onclick="playAudio(this)">▶️</button>
                 </div>
-                <div class="kata">
+                <div class="kata" data-audio="pensil.mp3">
                     <span>Pensil</span>
                     <span dir="rtl">قَلَم</span>
+                    <button class="play-button" onclick="playAudio(this)">▶️</button>
                 </div>
-                <div class="kata">
+                <div class="kata" data-audio="meja.mp3">
                     <span>Meja</span>
                     <span dir="rtl">طَاوِلَة</span>
+                    <button class="play-button" onclick="playAudio(this)">▶️</button>
                 </div>
-                <div class="kata">
+                <div class="kata" data-audio="guru.mp3">
                     <span>Guru</span>
                     <span dir="rtl">مُعَلِّم</span>
+                    <button class="play-button" onclick="playAudio(this)">▶️</button>
                 </div>
                 <div class="kata">
                     <span>Rumah</span>
@@ -166,7 +170,42 @@
     </main>
 
     <footer>
-        <!-- Footer sama seperti sebelumnya -->
+        <p>Isma Fathanah - 2102455 © Copyright 2025</p>
     </footer>
+
+    <script>
+        let currentAudio = null;
+    
+        function playAudio(button) {
+            // Hentikan audio yang sedang bermain
+            if(currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                button.classList.remove('playing');
+            }
+    
+            // Dapatkan elemen parent
+            const parentDiv = button.closest('.kata');
+            const audioFile = parentDiv.getAttribute('data-audio');
+            
+            // Buat objek audio
+            const audioPath = `../assets/audio/${audioFile}`;
+            currentAudio = new Audio(audioPath);
+    
+            // Update tampilan tombol
+            button.classList.add('playing');
+    
+            // Event handler saat audio selesai
+            currentAudio.addEventListener('ended', () => {
+                button.classList.remove('playing');
+            });
+    
+            // Mulai mainkan audio
+            currentAudio.play().catch(error => {
+                console.error('Gagal memainkan audio:', error);
+                button.classList.remove('playing');
+            });
+        }
+    </script>
 </body>
 </html>

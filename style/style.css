@@ -266,6 +266,28 @@ button:hover {
     border: none;
 }
 
+/* Tambahan style untuk tombol play */
+.play-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-right: 10px;
+    color: #2c3e50;
+    transition: transform 0.2s;
+}
+
+.play-button:hover {
+    transform: scale(1.2);
+    color: #3498db;
+}
+
+.kata, .kalimat .kata {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
 
 /* Responsive untuk mobile */
 @media (max-width: 768px) {
